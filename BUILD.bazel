@@ -6,8 +6,11 @@ kernel_dtstree(
         [
             "Makefile",
             "qcom/Makefile",
+            "qcom/**/Makefile",
+            "qcom/**/Kbuild",
             "qcom/**/*.dtsi",
             "qcom/**/*.dts",
+            "qcom/camera/config/**/*",
             "bindings/**/*",
         ],
         exclude = [
