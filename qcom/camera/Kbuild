@@ -1,7 +1,11 @@
 DTC_INCLUDE += $(srctree)/../sm4635-modules/qcom/opensource/camera-kernel
 
+ifeq ($(CONFIG_ARCH_PINEAPPLE),y)
 include $(srctree)/$(src)/config/pineapple.mk
+endif
+ifeq ($(CONFIG_ARCH_PITTI),y)
 include $(srctree)/$(src)/config/pitti.mk
+endif
 
 always-y	:= $(dtbo-y) $(dtb-y)
 subdir-y	:= $(dts-dirs)
