@@ -1,0 +1,12 @@
+/dts-v1/;
+/plugin/;
+
+#include "pitti-audio-qrd.dtsi"
+#include "warm-audio-qrd.dtsi"
+
+/ {
+	model = "Qualcomm Technologies, Inc. Warm QRD";
+	compatible = "qcom,pitti-qrd", "qcom,pitti", "qcom,qrd";
+	qcom,msm-id = <623 0x10000>;
+	qcom,board-id = <0x2000B 0>, <0x2000B 0x501>, <0x2000B 0x600>;
+};

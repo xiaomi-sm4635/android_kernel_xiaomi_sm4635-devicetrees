@@ -1,0 +1,139 @@
+/* warm's audio definition
+   warm uses foursemi fs15xx semiconductor
+   along sia81xx. */
+
+&tlmm {
+	fs15xx_id_default: fs15xx_id_default {
+		mux {
+			pins = "gpio41";
+			function = "gpio";
+		};
+		config {
+			pins = "gpio41";
+			drive-strength = <2>; /* 2 mA */
+			input-enable;
+			bias-pull-down; /* PULL UP */
+		};
+	};
+
+	fs15xx_id_active: fs15xx_id_active {
+		mux {
+			pins = "gpio41";
+			function = "gpio";
+		};
+		config {
+			pins = "gpio41";
+			drive-strength = <2>; /* 2 mA */
+			input-enable;
+			bias-pull-up; /* PULL UP */
+		};
+	};
+
+	fs15xx_cmd_default: fs15xx_cmd_default {
+		mux {
+			pins = "gpio85";
+			function = "gpio";
+		};
+		config {
+			pins = "gpio85";
+			drive-strength = <8>; /* 8 mA */
+			output-low;
+			bias-disable; /* No PULL */
+		};
+	};
+
+	fs15xx_mod_default: fs15xx_mod_default {
+    	mux {
+			pins = "gpio40";
+    		function = "gpio";
+    	};
+    	config {
+    		pins = "gpio40";
+    		drive-strength = <2>; /* 2 mA */
+    		output-low;
+    		bias-disable; /* No PULL */
+    	};
+    };
+
+/* end fs15xx
+   begin sia81xx */
+
+	sia81xx_gpio_L: sia81xx_gpio_L {
+		mux {
+			pins = "gpio85",
+			       "gpio85";
+			function = "gpio";
+		};
+		config {
+			pins = "gpio85",
+			       "gpio85";
+			bias-disable; /* No PULL */
+			drive-strength = <6>; /* 6 mA */
+		};
+	};
+
+	sia81xx_gpio_id: sia81xx_gpio_id {
+		mux {
+			pins = "gpio41",
+			       "gpio41";
+			function = "gpio";
+		};
+		config {
+			pins = "gpio41",
+			       "gpio41";
+			bias-pull-up; /* PULL UP */
+			drive-strength = <10>; /* 10 mA */
+		};
+	};
+};
+
+&soc {
+	aud_fs15xx: aud_fs15xx {
+		compatible = "foursemi,fs15xx";
+		status = "ok";
+
+		fsm,dev-type = <1>;
+		fsm,mod-gpio = <&tlmm 40 0>;
+		fsm,cmd-gpio = <&tlmm 85 0>;
+		fsm,id-gpio = <&tlmm 41 0>;
+
+        pinctrl-names = "fs15xx_id_default",
+                        "fs15xx_id_active",
+                        "fs15xx_cmd_default",
+                        "fs15xx_mod_default";
+		pinctrl-0 = <&fs15xx_id_default>;
+		pinctrl-1 = <&fs15xx_id_active>;
+		pinctrl-2 = <&fs15xx_cmd_default>;
+		pinctrl-3 = <&fs15xx_mod_default>;
+	};
+
+	si_pa_L: si_pa_L {
+		compatible = "si,sia81xx";
+		channel_num = <0>;
+		en_dynamic_id = <1>;
+
+		si,si_pa_type = "sia8100x";
+		si,si_pa_disable_pin = <0>;
+		si,si_pa_id = <&tlmm 41 0>;
+		si,si_pa_owi = <&tlmm 85 0>;
+		si,si_pa_reset = <&tlmm 85 0>;
+
+		pinctrl-names = "si_pa_gpio",
+		                "si_pa_id";
+		pinctrl-0 = <&sia81xx_gpio_L>;
+		pinctrl-1 = <&sia81xx_gpio_id>;
+	};
+};
+
+/* warm's changes on pitti-qrd-snd-card */
+&pitti_snd {
+    si,sia81xx-aux-devs = <&si_pa_L>;
+    si,sia81xx-aux-devs-prefix = "SpkrMonoL";
+    si,sia81xx-max-num = <1>;
+    asoc-codec = <&stub_codec>,
+                 <&lpass_cdc>,
+                 <&wcd9378_codec>;
+    asoc-codec-names = "msm-stub-codec.1",
+                       "lpass-cdc",
+                       "wcd9378_codec";
+};
