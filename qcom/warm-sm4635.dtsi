@@ -21,6 +21,20 @@
 	status = "okay";
 };
 
+&spmi_bus {
+    pm6125_sdam: sdam@800 {
+        compatible = "qcom,spmi-sdam";
+        reg = <0x800>;
+        #address-cells = <1>;
+        #size-cells = <1>;
+
+        restart_reason: restart@8f {
+            reg = <0x8f 0x1>;
+            bits = <1 7>;
+        };
+    };
+};
+
 &soc {
 	/*add simtray status*/
 	simtray {
