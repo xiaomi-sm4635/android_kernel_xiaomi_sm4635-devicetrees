@@ -46,4 +46,49 @@
 		nvmem-cell-names = "restart_reason";
 	};
 
+    goodix_fp: goodix_fp {
+        compatible = "goodix,fingerprint";
+        interrupt-parent = <&tlmm>;
+        interrupts = <87 1>;
+        fp-gpio-irq = <&tlmm 87 0>;
+        fp-gpio-reset = <&tlmm 86 0>;
+        fp_vdd_vreg-supply = <&L21A>;
+        pinctrl-names = "goodix_reset_outputlow",
+                        "goodix_reset_outputhigh",
+                        "fp_spi_miso_active",
+                        "fp_spi_mosi_active",
+                        "fp_spi_clk_active",
+                        "fp_spi_cs_active";
+        pinctrl-0 = <&msm_gpio_86>;
+        pinctrl-1 = <&msm_gpio_86_output_high>;
+        pinctrl-2 = <&msm_gpio_0>;
+        pinctrl-3 = <&msm_gpio_1>;
+        pinctrl-4 = <&msm_gpio_2>;
+        pinctrl-5 = <&msm_gpio_3>;
+        status = "okay";
+    };
+
+    silead_fp: silead_fp {
+        compatible = "sil,silead_fp";
+        interrupt-parent = <&tlmm>;
+        interrupts = <87 1>;
+        irq-gpios = <&tlmm 87 0>;
+        rst-gpios = <&tlmm 86 0>;
+        vdd-supply = <&L21A>;
+        pinctrl-names = "fp_spi_miso_active",
+                        "fp_spi_mosi_active",
+                        "fp_spi_clk_active",
+                        "fp_spi_cs_active";
+        pinctrl-0 = <&msm_gpio_0>;
+        pinctrl-1 = <&msm_gpio_1>;
+        pinctrl-2 = <&msm_gpio_2>;
+        pinctrl-3 = <&msm_gpio_3>;
+        status = "okay";
+    };
+
+    xiaomi_fingerprint {
+        compatible = "xiaomi-fingerprint";
+        status = "ok";
+        fingerprint,name = "xiaomi-fingerprint";
+    };
 };

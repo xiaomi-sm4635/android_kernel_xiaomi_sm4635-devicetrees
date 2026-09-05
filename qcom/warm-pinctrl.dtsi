@@ -1,1 +1,86 @@
 /* warm-pinctrl.dtsi */
+
+&tlmm {
+    /* FP_RESET_N */
+    msm_gpio_86: msm_gpio_86 {
+        mux {
+            pins = "gpio86";
+            function = "gpio";
+        };
+        config {
+            pins = "gpio86";
+            drive-strength = <2>; /* 2 mA */
+            bias-disable; /* No PULL */
+            output-low;
+        };
+    };
+
+    /* FP_RESET_N, state device active */
+    msm_gpio_86_output_high: msm_gpio_86_output_high {
+        mux {
+            pins = "gpio86";
+            function = "gpio";
+        };
+        config {
+            pins = "gpio86";
+            drive-strength = <2>; /* 2 mA */
+            bias-disable; /* No PULL */
+            output-high;
+        };
+    };
+
+    /* FP_SPI_CS */
+    msm_gpio_0: msm_gpio_0 {
+        mux {
+            pins = "gpio0";
+            function = "gpio";
+        };
+        config {
+            pins = "gpio0";
+            drive-strength = <2>; /* 2 mA */
+            bias-disable; /* No PULL */
+            output-low;
+        };
+    };
+
+    /* FP_SPI_MISO */
+    msm_gpio_1: msm_gpio_1 {
+        mux {
+            pins = "gpio1";
+            function = "gpio";
+        };
+        config {
+            pins = "gpio1";
+            drive-strength = <2>; /* 2 mA */
+            bias-pull-down; /* PULL DOWN */
+        };
+    };
+
+    /* FP_SPI_CS_N */
+    msm_gpio_2: msm_gpio_2 {
+        mux {
+            pins = "gpio2";
+            function = "gpio";
+        };
+        config {
+            pins = "gpio2";
+            drive-strength = <2>; /* 2 mA */
+            bias-disable; /* No PULL */
+            output-low;
+        };
+    };
+
+    /* FP_SPI_CLK */
+    msm_gpio_3: msm_gpio_3 {
+        mux {
+            pins = "gpio3";
+            function = "gpio";
+        };
+        config {
+            pins = "gpio3";
+            drive-strength = <2>; /* 2 mA */
+            bias-disable; /* No PULL */
+            output-low;
+        };
+    };
+};
