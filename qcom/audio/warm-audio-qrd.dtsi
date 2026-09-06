@@ -137,3 +137,35 @@
                        "lpass-cdc",
                        "wcd9378_codec";
 };
+
+&wsa881x_analog_clk_gpio {
+    status = "disabled";
+};
+
+&wsa881x_i2c_e {
+    status = "disabled";
+};
+
+&wsa881x_i2c_44 {
+    status = "disabled";
+};
+
+&wsa881x_analog_reset_gpio {
+    status = "disabled";
+};
+
+&wsa881x_analog_clk {
+    status = "disabled";
+};
+
+&wsa881x_analog_clk_gpio {
+    status = "disabled";
+};
+
+&cdc_dmic01_gpios {
+    status = "disabled";
+};
+
+&cdc_dmic23_gpios {
+    status = "disabled";
+};
